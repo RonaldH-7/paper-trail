@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "paper-trail-20094": {
+      "hosting": {
+        "paper-trail": [
+          "my-paper-trail"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "paper-trail-20094"
+  }
+}

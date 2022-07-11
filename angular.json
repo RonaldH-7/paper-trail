@@ -103,6 +103,16 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "paper-trail:build:production",
+            "firebaseProject": "paper-trail-20094",
+            "firebaseHostingSite": "my-paper-trail"
+          }
         }
       }
     }
