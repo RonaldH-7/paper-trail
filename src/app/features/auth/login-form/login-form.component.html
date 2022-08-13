@@ -1,4 +1,11 @@
 <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+    <mat-form-field *ngIf="isRegister">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" type="text" required>
+        <mat-error *ngIf="name?.hasError('required')">
+            Required
+        </mat-error>
+    </mat-form-field>
     <mat-form-field>
         <mat-label>Email</mat-label>
         <input matInput formControlName="email" type="email" required>

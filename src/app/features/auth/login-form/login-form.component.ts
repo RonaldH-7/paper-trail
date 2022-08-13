@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -7,7 +7,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./login-form.component.scss']
 })
 export class LoginFormComponent implements OnInit {
+  @Input() isRegister: boolean = true;
   @Output() formData: EventEmitter<{
+    name: string,
     email: string,
     password: string
   }> = new EventEmitter();
@@ -16,10 +18,20 @@ export class LoginFormComponent implements OnInit {
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    let nameValidators = [];
+    if (this.isRegister) {
+      nameValidators.push(Validators.required);
+    }
+
     this.formGroup = this.formBuilder.group({
+      name: ['', nameValidators],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]]
-    })
+    });
+  }
+
+  get name() {
+    return this.formGroup.get('name');
   }
 
   get email() {
@@ -33,6 +45,9 @@ export class LoginFormComponent implements OnInit {
   onSubmit() {
     if (this.formGroup.valid) {
       this.formData.emit(this.formGroup.value);
+    } else {
+      // TODO - Add an error toast
+      console.log("Sign in not valid");
     }
   }
 }
