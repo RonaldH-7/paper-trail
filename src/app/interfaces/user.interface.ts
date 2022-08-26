@@ -1,7 +1,9 @@
+import { StoredCode } from "./stored-code.interface"
+
 export interface User {
     name: string,
     email: string,
-    groups: string[],
+    groups: StoredCode[],
     notifications: string[],
     expenses: string[],
     income: string[]

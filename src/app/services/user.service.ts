@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { DbService } from './db.service';
 import { User } from '../interfaces/user.interface';
+import { StoredCode } from '../interfaces/stored-code.interface';
 
 @Injectable({
     providedIn: 'root'
@@ -29,16 +30,19 @@ export class UserService {
         }
     }
 
-    addGroupToUser(uid: string, groupId: string) {
+    addGroupToUser(uid: string, groupId: string, groupName: string) {
         // Get information on the user who created the group
         this.dbService.get('users', uid).subscribe(res => {
             // Adds the newly created group to the groups array
             let user: User = res as User;
-            let groups: string[] = user.groups;
+            let groups: StoredCode[] = user.groups;
             if (!groups) {
                 groups = [];
             }
-            groups.push(groupId);
+            groups.push({
+                id: groupId,
+                name: groupName
+            });
             user.groups = groups;
 
             // Updates the DB

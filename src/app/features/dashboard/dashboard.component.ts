@@ -57,18 +57,18 @@ export class DashboardComponent implements OnInit {
   // TODO - Remove this
   category: string;
   addCategory() {
-    let groupId = this.user.groups[0];
+    let groupId: string = this.user.groups[0].id;
     this.groupService.addCategory(groupId, this.category);
     this.category = '';
   }
 
   getCategories() {
-    let uid: any = this.authService.getUID();
-    this.dbService.get('users', uid).subscribe(res => {
-      let groupId = (res as User).groups[0];
-      // let x = await this.groupService.getCategories(groupId);
-      console.log(this.groupService.getCategories(groupId));
-    });
+    // let uid: any = this.authService.getUID();
+    // this.dbService.get('users', uid).subscribe(res => {
+    //   let groupId = (res as User).groups[0];
+    //   // let x = await this.groupService.getCategories(groupId);
+    //   console.log(this.groupService.getCategories(groupId));
+    // });
   }
 
   // TODO - Remove this

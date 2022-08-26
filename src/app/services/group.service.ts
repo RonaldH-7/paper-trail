@@ -29,7 +29,7 @@ export class GroupService {
         // Creates the group and adds it to the gorup array for the user
         this.dbService.post('groups', newGroup).subscribe(res => {
             let groupId: string = (res as any).name;
-            this.userService.addGroupToUser(creatorUID, groupId);
+            this.userService.addGroupToUser(creatorUID, groupId, newGroup.name);
         });
     }
 

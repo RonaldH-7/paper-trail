@@ -10,9 +10,14 @@
 <div>
     <button (click)="getCategories()">Get categories</button>
 </div>
+<br>
 <div>
     <strong>Groups:</strong>
     <ul>
-        <li *ngFor="let group of user?.groups">{{ group }}</li>
+        <li *ngFor="let group of user?.groups">{{ group.name }}</li>
     </ul>
+</div>
+<br>
+<div>
+    
 </div>
