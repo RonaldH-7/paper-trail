@@ -4,21 +4,29 @@ import { AuthService } from '../../services/auth.service';
 import { DbService } from '../../services/db.service';
 import { Router } from '@angular/router'
 
+// TODO - Remove these
+import { User } from '../../interfaces/user.interface';
+import { ExpenseService } from '../../services/expense.service';
+import { GroupService } from '../../services/group.service';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  user: User;
 
   constructor(
     private readonly authService: AuthService,
     private readonly router: Router,
     private dbService: DbService,
-    private http: HttpClient
+    private http: HttpClient,
+    private groupService: GroupService
   ) { }
 
   ngOnInit(): void {
+    this.getUser();
   }
 
   logout() {
@@ -32,6 +40,13 @@ export class DashboardComponent implements OnInit {
     console.log(this.authService.getUID());
   }
 
+  getUser() {
+    let uid: any = this.authService.getUID();
+    this.dbService.get('users', uid).subscribe(res => {
+      this.user = res as User;
+    });
+  }
+
   // TODO - Remove this
   getFromDB() {
     let uid: any = this.authService.getUID();
@@ -39,6 +54,23 @@ export class DashboardComponent implements OnInit {
     // this.dbService.get('users', uid);
   }
   
+  // TODO - Remove this
+  category: string;
+  addCategory() {
+    let groupId = this.user.groups[0];
+    this.groupService.addCategory(groupId, this.category);
+    this.category = '';
+  }
+
+  getCategories() {
+    let uid: any = this.authService.getUID();
+    this.dbService.get('users', uid).subscribe(res => {
+      let groupId = (res as User).groups[0];
+      // let x = await this.groupService.getCategories(groupId);
+      console.log(this.groupService.getCategories(groupId));
+    });
+  }
+
   // TODO - Remove this
   test() {
     // let x = this.authService.currentUser();

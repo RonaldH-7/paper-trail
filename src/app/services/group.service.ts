@@ -3,6 +3,7 @@ import { DbService } from './db.service';
 import { UserService } from './user.service';
 import { Group } from '../interfaces/group.interface';
 import { User } from '../interfaces/user.interface';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -30,5 +31,29 @@ export class GroupService {
             let groupId: string = (res as any).name;
             this.userService.addGroupToUser(creatorUID, groupId);
         });
+    }
+
+    addCategory(groupId: string, category: string) {
+        this.dbService.get('groups', groupId).subscribe(res => {
+            let group = res as Group;
+
+            if (!group.categories) {
+                group.categories = [];
+            }
+
+            if (!group.categories.includes(category)) {
+                group.categories.push(category);
+                this.dbService.put('groups', groupId, group).subscribe();
+            }
+        });
+    }
+
+    getCategories(groupId: string) {
+        // let group: Group = await firstValueFrom(this.dbService.get('groups', groupId)) as Group;
+        // console.log(group);
+        // return group.categories;
+        // firstValueFrom(this.dbService.get('groups', groupId)).then(res => {
+        //     return (res as Group).categories;
+        // })
     }
 }

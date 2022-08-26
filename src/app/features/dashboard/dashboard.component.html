@@ -3,3 +3,16 @@
 <br><button (click)="test()">TEST</button>
 <br><button (click)="printUID()">Print UID</button>
 <br><button (click)="getFromDB()">Get from DB</button>
+<div>
+    <br>Add Category: <input type="text" [(ngModel)]="category">
+    <button (click)="addCategory()" [disabled]="!category">Add</button>
+</div>
+<div>
+    <button (click)="getCategories()">Get categories</button>
+</div>
+<div>
+    <strong>Groups:</strong>
+    <ul>
+        <li *ngFor="let group of user?.groups">{{ group }}</li>
+    </ul>
+</div>
