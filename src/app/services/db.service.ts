@@ -12,23 +12,23 @@ export class DbService {
         private http: HttpClient
     ) { }
 
-    async get(table: string, key: string) {
+    get(table: string, key: string) {
         const target = table + '/' + key + '.json';
-        return await firstValueFrom(this.http.get(this.url + target));
+        return this.http.get(this.url + target);
     }
 
     put(table: string, key: string, data: object) {
         const target = table + '/' + key + '.json';
-        return this.http.put(this.url + target, data).subscribe();
+        return this.http.put(this.url + target, data);
     }
 
-    async post(table: string, data: object) {
+    post(table: string, data: object) {
         const target = table + '.json';
-        return await firstValueFrom(this.http.post(this.url + target, data));
+        return this.http.post(this.url + target, data);
     }
 
     patch(table: string, key: string, data: object) {
         const target = table + '.json';
-        return this.http.patch(this.url + target, data).subscribe();
+        return this.http.patch(this.url + target, data);
     }
 }

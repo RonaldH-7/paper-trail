@@ -22,7 +22,7 @@ export class UserService {
                 income: []
             };
 
-            this.dbService.put('users', uid, newUser);
+            this.dbService.put('users', uid, newUser).subscribe();
         } else {
             // TODO
             console.log("Cannot create user. UID is undefined");
@@ -31,9 +31,9 @@ export class UserService {
 
     addGroupToUser(uid: string, groupId: string) {
         // Get information on the user who created the group
-        this.dbService.get('users', uid).then(userRes => {
+        this.dbService.get('users', uid).subscribe(res => {
             // Adds the newly created group to the groups array
-            let user: User = userRes as User;
+            let user: User = res as User;
             let groups: string[] = user.groups;
             if (!groups) {
                 groups = [];
@@ -42,7 +42,7 @@ export class UserService {
             user.groups = groups;
 
             // Updates the DB
-            this.dbService.put('users', uid, user);
+            this.dbService.put('users', uid, user).subscribe();
         });
     }
 }

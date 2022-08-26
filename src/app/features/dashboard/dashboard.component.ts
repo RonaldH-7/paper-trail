@@ -35,7 +35,7 @@ export class DashboardComponent implements OnInit {
   // TODO - Remove this
   getFromDB() {
     let uid: any = this.authService.getUID();
-    this.dbService.get('users', uid).then(res => console.log("getFromDb: ", res));
+    this.dbService.get('users', uid).subscribe(res => console.log("getFromDb: ", res));
     // this.dbService.get('users', uid);
   }
   
