@@ -12,7 +12,7 @@ export class UserService {
         private dbService: DbService
     ) { }
 
-    createUser(uid: string, name: string, email: string) {
+    async createUser(uid: string, name: string, email: string) {
         if (uid) {
             let newUser: User = {
                 name: name,
@@ -23,30 +23,27 @@ export class UserService {
                 income: []
             };
 
-            this.dbService.put('users', uid, newUser).subscribe();
+            // this.dbService.put('users', uid, newUser).subscribe();
+            await this.dbService.put('users', uid, newUser);
         } else {
             // TODO
             console.log("Cannot create user. UID is undefined");
         }
     }
 
-    addGroupToUser(uid: string, groupId: string, groupName: string) {
+    async addGroupToUser(uid: string, groupId: string, groupName: string) {
         // Get information on the user who created the group
-        this.dbService.get('users', uid).subscribe(res => {
-            // Adds the newly created group to the groups array
-            let user: User = res as User;
-            let groups: StoredCode[] = user.groups;
-            if (!groups) {
-                groups = [];
-            }
-            groups.push({
-                id: groupId,
-                name: groupName
-            });
-            user.groups = groups;
-
-            // Updates the DB
-            this.dbService.put('users', uid, user).subscribe();
+        let user = await this.dbService.get('users', uid) as User;
+        let groups: StoredCode[] = user.groups;
+        if (!groups) {
+            groups = [];
+        }
+        groups.push({
+            id: groupId,
+            name: groupName
         });
+        user.groups = groups;
+
+        await this.dbService.put('users', uid, user);
     }
 }

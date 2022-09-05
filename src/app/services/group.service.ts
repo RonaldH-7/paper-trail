@@ -27,25 +27,21 @@ export class GroupService {
         };
 
         // Creates the group and adds it to the gorup array for the user
-        this.dbService.post('groups', newGroup).subscribe(res => {
-            let groupId: string = (res as any).name;
-            this.userService.addGroupToUser(creatorUID, groupId, newGroup.name);
-        });
+        let groupId: any = await this.dbService.post('groups', newGroup);
+        await this.userService.addGroupToUser(creatorUID, groupId.name, newGroup.name);
     }
 
-    addCategory(groupId: string, category: string) {
-        this.dbService.get('groups', groupId).subscribe(res => {
-            let group = res as Group;
+    async addCategory(groupId: string, category: string) {
+        let group = await this.dbService.get('groups', groupId) as Group;
 
-            if (!group.categories) {
-                group.categories = [];
-            }
+        if (!group.categories) {
+            group.categories = [];
+        }
 
-            if (!group.categories.includes(category)) {
-                group.categories.push(category);
-                this.dbService.put('groups', groupId, group).subscribe();
-            }
-        });
+        if (!group.categories.includes(category)) {
+            group.categories.push(category);
+            this.dbService.put('groups', groupId, group);
+        }
     }
 
     getCategories(groupId: string) {

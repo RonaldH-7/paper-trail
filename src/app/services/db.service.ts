@@ -14,17 +14,17 @@ export class DbService {
 
     get(table: string, key: string) {
         const target = table + '/' + key + '.json';
-        return this.http.get(this.url + target);
+        return firstValueFrom(this.http.get(this.url + target));
     }
 
     put(table: string, key: string, data: object) {
         const target = table + '/' + key + '.json';
-        return this.http.put(this.url + target, data);
+        return firstValueFrom(this.http.put(this.url + target, data));
     }
 
     post(table: string, data: object) {
         const target = table + '.json';
-        return this.http.post(this.url + target, data);
+        return firstValueFrom(this.http.post(this.url + target, data));
     }
 
     patch(table: string, key: string, data: object) {

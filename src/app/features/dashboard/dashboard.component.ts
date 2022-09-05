@@ -41,17 +41,15 @@ export class DashboardComponent implements OnInit {
     console.log(this.authService.getUID());
   }
 
-  getUser() {
+  async getUser() {
     let uid: any = this.authService.getUID();
-    this.dbService.get('users', uid).subscribe(res => {
-      this.user = res as User;
-    });
+    this.user = await this.dbService.get('users', uid) as User;
   }
 
   // TODO - Remove this
   getFromDB() {
     let uid: any = this.authService.getUID();
-    this.dbService.get('users', uid).subscribe(res => console.log("getFromDb: ", res));
+    // this.dbService.get('users', uid).subscribe(res => console.log("getFromDb: ", res));
     // this.dbService.get('users', uid);
   }
   
@@ -75,12 +73,10 @@ export class DashboardComponent implements OnInit {
 
   // TODO - Remove this
   group: string;
-  createGroup() {
+  async createGroup() {
     let uid: any = this.authService.getUID();
-    this.groupService.createGroup(uid, this.group).then(() => {
-      this.group = '';
-      this.getUser();
-    });
+    await this.groupService.createGroup(uid, this.group);
+    this.getUser();
   }
 
   // TODO - Remove this

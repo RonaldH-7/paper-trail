@@ -24,11 +24,11 @@ export class RegisterPageComponent implements OnInit {
 
   register(loginData: LoginData) {
     this.authService.register(loginData)
-      .then(() => {
+      .then(async () => {
         const uid: any = this.authService.getUID();
         this.router.navigate(['/login']);
-        this.userService.createUser(uid, loginData.name, loginData.email);
-        this.groupService.createGroup(uid);
+        await this.userService.createUser(uid, loginData.name, loginData.email);
+        await this.groupService.createGroup(uid);
       })
       .catch((err) => console.log(err.message));
   }
