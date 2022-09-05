@@ -19,5 +19,7 @@
 </div>
 <br>
 <div>
-    
+    Create Group: <input type="text" [(ngModel)]="group">
+    <button (click)="createGroup()" [disabled]="!group">Create</button>
 </div>
+<p>TODO: Figure out how to update the list of groups on the dashboard after a new group is created</p>

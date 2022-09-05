@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../services/auth.service';
 import { DbService } from '../../services/db.service';
@@ -22,7 +22,8 @@ export class DashboardComponent implements OnInit {
     private readonly router: Router,
     private dbService: DbService,
     private http: HttpClient,
-    private groupService: GroupService
+    private groupService: GroupService,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
@@ -62,6 +63,7 @@ export class DashboardComponent implements OnInit {
     this.category = '';
   }
 
+  // TODO - Remove this
   getCategories() {
     // let uid: any = this.authService.getUID();
     // this.dbService.get('users', uid).subscribe(res => {
@@ -69,6 +71,16 @@ export class DashboardComponent implements OnInit {
     //   // let x = await this.groupService.getCategories(groupId);
     //   console.log(this.groupService.getCategories(groupId));
     // });
+  }
+
+  // TODO - Remove this
+  group: string;
+  createGroup() {
+    let uid: any = this.authService.getUID();
+    this.groupService.createGroup(uid, this.group).then(() => {
+      this.group = '';
+      this.getUser();
+    });
   }
 
   // TODO - Remove this
