@@ -1,5 +1,4 @@
 <p>dashboard works!</p>
-<button (click)="logout()">Log Out</button>
 <br><button (click)="test()">TEST</button>
 <br><button (click)="printUID()">Print UID</button>
 <br><button (click)="getFromDB()">Get from DB</button>
@@ -22,4 +21,14 @@
     Create Group: <input type="text" [(ngModel)]="group">
     <button (click)="createGroup()" [disabled]="!group">Create</button>
 </div>
-<p>TODO: Figure out how to update the list of groups on the dashboard after a new group is created</p>
+<br>
+<div>
+    <strong>Expenses:</strong>
+    <br>
+    List of Expenses:
+    <ul>
+        <li></li>
+    </ul>
+    <button>Add Expense</button>
+</div>
+<p>TODO: Create the Add Expense Modal</p>

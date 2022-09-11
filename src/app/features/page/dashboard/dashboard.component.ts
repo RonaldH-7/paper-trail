@@ -1,13 +1,13 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { AuthService } from '../../services/auth.service';
-import { DbService } from '../../services/db.service';
+import { AuthService } from '../../../services/auth.service';
+import { DbService } from '../../../services/db.service';
 import { Router } from '@angular/router'
 
 // TODO - Remove these
-import { User } from '../../interfaces/user.interface';
-import { ExpenseService } from '../../services/expense.service';
-import { GroupService } from '../../services/group.service';
+import { User } from '../../../interfaces/user.interface';
+import { ExpenseService } from '../../../services/expense.service';
+import { GroupService } from '../../../services/group.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -28,12 +28,6 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUser();
-  }
-
-  logout() {
-    this.authService.logout()
-      .then(() => this.router.navigate(['/']))
-      .catch((err) => console.log(err.message));
   }
 
   // TODO - Remove this

@@ -3,7 +3,7 @@ import { canActivate, redirectUnauthorizedTo, redirectLoggedInTo } from '@angula
 import { RouterModule, Routes } from '@angular/router';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['']);
-const redirectLoggedInToHome = () => redirectLoggedInTo(['dashboard']);
+const redirectLoggedInToHome = () => redirectLoggedInTo(['page']);
 
 const routes: Routes = [
   { 
@@ -13,9 +13,9 @@ const routes: Routes = [
     ...canActivate(redirectLoggedInToHome)
   },
   { 
-    path: 'dashboard', 
+    path: 'page', 
     loadChildren: () => 
-      import('./features/dashboard/dashboard.module').then((m) => m.DashboardModule),
+      import('./features/page/page.module').then((m) => m.PageModule),
     ...canActivate(redirectUnauthorizedToLogin)
   },
   { path: '**', redirectTo: '', pathMatch: 'full' }

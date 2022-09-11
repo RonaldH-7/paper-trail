@@ -20,7 +20,7 @@ export class LoginPageComponent implements OnInit {
 
   login(loginData: LoginData) {
     this.authService.login(loginData)
-      .then(() => this.router.navigate(['/dashboard']))
+      .then(() => this.router.navigate(['/page']))
       .catch((err) => console.log(err.message));
   }
 }
