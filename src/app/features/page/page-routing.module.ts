@@ -8,7 +8,9 @@ const routes: Routes = [
   { 
     path: '', component: PageComponent, children: [
       { path: '', redirectTo: 'dashboard' },
-      { path: 'dashboard', component: DashboardComponent }
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'expense/:id', component: ExpenseComponent },
+      { path: 'expense', component: ExpenseComponent }
     ]
   },
 ];

@@ -73,6 +73,11 @@ export class DashboardComponent implements OnInit {
     this.getUser();
   }
 
+  addExpense() {
+    console.log("Here")
+    this.router.navigate(['/page/expense']);
+  }
+
   // TODO - Remove this
   test() {
     // let x = this.authService.currentUser();
